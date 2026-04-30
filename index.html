@@ -137,25 +137,39 @@ header a:hover, header a.active { color: var(--yellow); }
 
     footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--bg2); color: var(--fg4); font-size: 0.85rem; }
 
+    /* Landing Page */
+    .landing { text-align: center; margin-bottom: 3rem; }
+    .landing-name { font-size: 2.5rem; font-style: italic; color: var(--fg1); margin-bottom: 1.5rem; }
+    .landing-image { width: 200px; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem; }
+    .landing-clock { font-size: 3rem; font-weight: 300; color: var(--fg2); font-variant-numeric: tabular-nums; }
+    .landing-clock-label { font-size: 0.9rem; color: var(--fg4); margin-top: 0.5rem; }
+
     @media (max-width: 600px) { .projects-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
+  <!-- Landing Page -->
+  <div class="landing">
+    <p class="landing-name">ennio pantoja</p>
+    <img class="landing-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQN0LRLgrCy35Qpho41tgnQ_12xOuogIPdFvg&s" alt="Ateneo de Manila University">
+    <p class="landing-clock" id="clock">--:--:--</p>
+    <p class="landing-clock-label">Quezon City, Philippines</p>
+  </div>
+
   <header>
-    <a href="#home" class="tab-link active" data-tab="home">home</a>
+    <a href="#about" class="tab-link" data-tab="about">about</a>
     <a href="#projects" class="tab-link" data-tab="projects">projects</a>
     <a href="#blog" class="tab-link" data-tab="blog">blog</a>
     <a href="#socials" class="tab-link" data-tab="socials">socials</a>
   </header>
 
   <main>
-    <!-- HOME - STATIC SECTION - EDIT MANUALLY -->
-    <div id="home" class="tab-content active">
-      <h1>ennio pantoja</h1>
-      <p class="role">goofiest developer of all time</p>
-      <h2>about</h2>
-      <p>building useful but pretty stupid things</p>
-      <p>kinda performative but i think were good</p>
+    <!-- ABOUT - STATIC SECTION - EDIT MANUALLY -->
+    <div id="about" class="tab-content">
+      <h1>about</h1>
+      <p class="role">developer</p>
+      <p>building things. learning every day.</p>
+      <p>based in the terminal, coding from anywhere.</p>
     </div>
 
     <!-- PROJECTS - DYNAMIC SECTION - SYNCED FROM OBSIDIAN -->
@@ -251,9 +265,23 @@ test hello world i want to know that i am someone of capable possibilities and t
   </footer>
 
   <script>
+    // Live clock - Quezon City, Philippines
+    function updateClock() {
+      const now = new Date();
+      const options = { timeZone: 'Asia/Manila', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+      const timeStr = now.toLocaleTimeString('en-PH', options);
+      document.getElementById('clock').textContent = timeStr;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
     // Tab switching
     const links = document.querySelectorAll('.tab-link');
     const contents = document.querySelectorAll('.tab-content');
+
+    // Default: no tab selected (landing page shown)
+    links.forEach(link => link.classList.remove('active'));
+    contents.forEach(c => c.classList.remove('active'));
 
     links.forEach(link => {
       link.addEventListener('click', (e) => {
