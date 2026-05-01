@@ -171,6 +171,12 @@ header a:hover, header a.active { color: var(--yellow); }
     .landing-clock-date { font-size: 1.1rem; color: var(--fg4); margin-top: 0.25rem; }
     .landing-clock-label { font-size: 0.9rem; color: var(--fg4); margin-top: 0.5rem; }
 
+    /* Mika Lim Shrine */
+    .shrine-container { text-align: center; padding: 2rem 0; }
+    .shrine-image { max-width: 400px; width: 100%; border-radius: 8px; box-shadow: 0 0 30px rgba(251, 191, 36, 0.3); }
+    .shrine-caption { font-size: 2rem; color: var(--fg1); margin-top: 1.5rem; }
+    .shrine-hashtag { font-size: 1.2rem; color: var(--aqua); margin-top: 0.5rem; }
+
     @media (max-width: 600px) {
       .projects-grid { grid-template-columns: 1fr; }
       .landing-image { width: 150px; height: 150px; }
@@ -195,6 +201,7 @@ header a:hover, header a.active { color: var(--yellow); }
     <a href="#projects" class="tab-link" data-tab="projects">projects</a>
     <a href="#blog" class="tab-link" data-tab="blog">blog</a>
     <a href="#socials" class="tab-link" data-tab="socials">socials</a>
+    <a href="#mika-lim" class="tab-link" data-tab="mika-lim">mika lim shrine</a>
   </header>
 
   <main>
@@ -318,6 +325,15 @@ but i mean no harm done when i still publish thoughts that will somehow show tha
         </div>
       </div>
     </div>
+
+    <!-- MIKA LIM SHRINE - STATIC SECTION -->
+    <div id="mika-lim" class="tab-content">
+      <div class="shrine-container">
+        <img class="shrine-image" src="https://ibb.co/m5sLFHwS" alt="Mika Lim">
+        <p class="shrine-caption">i love mika lim</p>
+        <p class="shrine-hashtag">#mikalimfanclub for life</p>
+      </div>
+    </div>
   </main>
 
   <footer>
@@ -365,7 +381,7 @@ but i mean no harm done when i still publish thoughts that will somehow show tha
 
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
-      const tabNames = ['about', 'projects', 'blog', 'socials'];
+      const tabNames = ['about', 'projects', 'blog', 'socials', 'mika-lim'];
       const activeLink = document.querySelector('.tab-link.active');
       const currentIndex = activeLink ? tabNames.indexOf(activeLink.dataset.tab) : -1;
 
