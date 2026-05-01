@@ -1,0 +1,114 @@
+#!/usr/bin/env python3
+import os
+import re
+from datetime import date
+OBSIDIAN_VAULT = "/Users/enjo/Library/Mobile Documents/icloud~md~obsidian/Documents/vault ennio"
+PROJECTS_DIR = f"{OBSIDIAN_VAULT}/04 projects"
+PORTFOLIO_DIR = "/Users/enjo/Documents/portfolio"
+HTML_FILE = f"{PORTFOLIO_DIR}/index.html"
+
+def get_projects(folder):
+    projects = []
+    folder_path = f"{PROJECTS_DIR}/{folder}"
+    if os.path.exists(folder_path):
+        for filename in sorted(os.listdir(folder_path)):
+            if filename.endswith('.md'):
+                filepath = os.path.join(folder_path, filename)
+                with open(filepath, 'r') as f:
+                    lines = f.readlines()
+                    desc = lines[0].strip().replace('#', '').strip()[:80] if lines else filename[:-3]
+                projects.append((filename[:-3], desc))
+    return projects
+
+def get_blog_posts():
+    posts = []
+    blog_dir = f"{OBSIDIAN_VAULT}/05 blog"
+    if os.path.exists(blog_dir):
+        for filename in sorted(os.listdir(blog_dir), reverse=True):
+            if filename.endswith('.md'):
+                filepath = os.path.join(blog_dir, filename)
+                with open(filepath, 'r') as f:
+                    content = f.read()
+                    lines = content.split('\n')
+                    title = filename[:-3]
+                    if lines:
+                        first = lines[0].strip()
+                        if first.startswith('# '):
+                            title = first[2:].strip()
+                        elif first.startswith('#'):
+                            title = first[1:].strip()
+                    date_str = '2026-01-01'
+                    for line in lines:
+                        if line.lower().strip().startswith('date:'):
+                            date_str = line.strip().split(':', 1)[1].strip()
+                            break
+                    body = content.replace('# ' + title, '').replace('#' + title, '').strip()
+                posts.append((date_str, title, body[:500]))
+    return posts
+
+def replace_placeholder(html, start_marker, end_marker, new_content):
+    pattern = re.compile(rf'{re.escape(start_marker)}.*{re.escape(end_marker)}', re.DOTALL)
+    full_content = f'{start_marker}\n{new_content}\n{end_marker}'
+    return pattern.sub(full_content, html)
+
+def sync_website():
+    in_progress = get_projects('in progress')
+    not_started = get_projects('not started')
+    blog_posts = get_blog_posts()
+
+    with open(HTML_FILE, 'r') as f:
+        html = f.read()
+
+    in_progress_html = ''
+    for name, desc in in_progress:
+        in_progress_html += f'''<div class="project">
+            <a href="#">{name}</a>
+            <p class="status status-progress">in progress</p>
+            <p class="desc">{desc}</p>
+          </div>
+'''
+
+    not_started_html = ''
+    for name, desc in not_started:
+        not_started_html += f'''<div class="project">
+            <a href="#">{name}</a>
+            <p class="status status-notstarted">not started</p>
+            <p class="desc">{desc}</p>
+          </div>
+'''
+
+    # Blog list for main view
+    blog_list_html = '<div class="blog-list">'
+    for date_str, title, body in blog_posts:
+        slug = title.lower().replace(' ', '-').replace('.', '')
+        blog_list_html += f'''<div class="blog-list-item" data-goto="{slug}">
+          <span class="blog-ctitle">{title}</span>
+          <span class="blog-cdate">{date_str}</span>
+        </div>'''
+    blog_list_html += '</div>'
+    if not blog_posts:
+        blog_list_html = '<p class="empty">no posts yet.</p>'
+
+    # Blog posts container (hidden, contains full posts)
+    blog_posts_html = '<div class="blog-posts">'
+    for date_str, title, body in blog_posts:
+        slug = title.lower().replace(' ', '-').replace('.', '')
+        blog_posts_html += f'''<div class="blog-entry" data-slug="{slug}">
+          <h3 class="blog-ctitle">{title}</h3>
+          <p class="blog-cdate">{date_str}</p>
+          <div class="blog-cbody">{body}</div>
+          <a href="#blog" class="blog-back">← back to blog</a>
+        </div>'''
+    blog_posts_html += '</div>'
+
+    html = replace_placeholder(html, '<!-- DYNAMIC_IPS -->', '<!-- END_IPS -->', in_progress_html)
+    html = replace_placeholder(html, '<!-- DYNAMIC_NS -->', '<!-- END_NS -->', not_started_html)
+    html = replace_placeholder(html, '<!-- DYNAMIC_BLOG -->', '<!-- END_BLOG -->', blog_list_html + '\n' + blog_posts_html)
+
+    with open(HTML_FILE, 'w') as f:
+        f.write(html)
+
+    print(f"Sync complete: {len(in_progress)} in progress, {len(not_started)} not started, {len(blog_posts)} blog posts")
+
+if __name__ == "__main__":
+    sync_website()
