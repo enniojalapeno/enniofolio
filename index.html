@@ -342,6 +342,11 @@ but i mean no harm done when i still publish thoughts that will somehow show tha
     const links = document.querySelectorAll('.tab-link');
     const contents = document.querySelectorAll('.tab-content');
 
+    // Auto-scroll to top function
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     // Default: no tab selected (landing page shown)
     links.forEach(link => link.classList.remove('active'));
     contents.forEach(c => c.classList.remove('active'));
@@ -354,6 +359,7 @@ but i mean no harm done when i still publish thoughts that will somehow show tha
         contents.forEach(c => c.classList.remove('active'));
         link.classList.add('active');
         document.getElementById(tab).classList.add('active');
+        scrollToTop();
       });
     });
 
@@ -390,6 +396,7 @@ but i mean no harm done when i still publish thoughts that will somehow show tha
               post.classList.remove('active');
             }
           });
+          scrollToTop();
         });
       });
 
@@ -398,6 +405,7 @@ but i mean no harm done when i still publish thoughts that will somehow show tha
           e.preventDefault();
           blogPosts.querySelectorAll('.blog-entry').forEach(post => post.classList.remove('active'));
           blogList.style.display = 'grid';
+          scrollToTop();
         });
       });
     }
