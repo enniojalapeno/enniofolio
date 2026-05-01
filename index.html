@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>enniofolio</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23282828' width='100' height='100'/></svg>" type="image/svg+xml">
+  <meta name="description" content="ennio pantoja - developer based in the terminal">
+  <meta property="og:title" content="enniofolio">
+  <meta property="og:description" content="ennio pantoja - developer based in the terminal">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://enniop.pages.dev/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="enniofolio">
+  <meta name="twitter:description" content="ennio pantoja - developer based in the terminal">
   <style>
     :root {
       --bg0: #282828;
@@ -68,8 +76,16 @@ header a:hover, header a.active { color: var(--yellow); }
 
     .role { font-size: 1.1rem; color: var(--fg4); margin-bottom: 2rem; }
 
-    .tab-content { display: none; }
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+    .skill { padding: 0.4rem 0.75rem; background: var(--bg1); border-radius: 4px; font-size: 0.9rem; color: var(--fg2); }
+
+    .tab-content { display: none; animation: fadeIn 0.3s ease; }
     .tab-content.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     a { color: var(--aqua); text-decoration: none; transition: color 0.2s; }
     a:hover { color: var(--yellow); }
@@ -142,9 +158,16 @@ header a:hover, header a.active { color: var(--yellow); }
     .landing-name { font-size: 2.5rem; font-style: italic; color: var(--fg1); margin-bottom: 1.5rem; }
     .landing-image { width: 200px; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem; }
     .landing-clock { font-size: 3rem; font-weight: 300; color: var(--fg2); font-variant-numeric: tabular-nums; }
+    .landing-clock-date { font-size: 1.1rem; color: var(--fg4); margin-top: 0.25rem; }
     .landing-clock-label { font-size: 0.9rem; color: var(--fg4); margin-top: 0.5rem; }
 
-    @media (max-width: 600px) { .projects-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .landing-image { width: 150px; height: 150px; }
+      .landing-clock { font-size: 2rem; }
+      .landing-name { font-size: 1.8rem; }
+      header { gap: 1rem; justify-content: center; }
+    }
   </style>
 </head>
 <body>
@@ -153,6 +176,7 @@ header a:hover, header a.active { color: var(--yellow); }
     <p class="landing-name">ennio pantoja</p>
     <img class="landing-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQN0LRLgrCy35Qpho41tgnQ_12xOuogIPdFvg&s" alt="Ateneo de Manila University">
     <p class="landing-clock" id="clock">--:--:--</p>
+    <p class="landing-clock-date" id="clock-date">Loading...</p>
     <p class="landing-clock-label">Quezon City, Philippines</p>
   </div>
 
@@ -170,6 +194,17 @@ header a:hover, header a.active { color: var(--yellow); }
       <p class="role">the absolute funniest developer of all time</p>
       <p>i try to make stuff thats useful</p>
       <p>something learned everyday is like + 1 skill point</p>
+      <h3>stack</h3>
+      <div class="skills-grid">
+        <span class="skill">python</span>
+        <span class="skill">javascript</span>
+        <span class="skill">html</span>
+        <span class="skill">css</span>
+        <span class="skill">obsidian</span>
+        <span class="skill">terminal</span>
+        <span class="skill">git</span>
+        <span class="skill">cloudflare</span>
+      </div>
     </div>
 
     <!-- PROJECTS - DYNAMIC SECTION - SYNCED FROM OBSIDIAN -->
@@ -225,21 +260,19 @@ header a:hover, header a.active { color: var(--yellow); }
     <div id="blog" class="tab-content">
       <h2>blog</h2>
       <!-- DYNAMIC_BLOG -->
-<div class="blog-list"><div class="blog-list-item" data-goto="02-day-in-the-life-of-a-harpoons-swimmer">
-          <span class="blog-ctitle">02 day in the life of a harpoons swimmer</span>
+<div class="blog-list"><div class="blog-list-item" data-goto="02-day-in-the-life-of-a-harpoons-swimmer-(manager)">
+          <span class="blog-ctitle">02 day in the life of a harpoons swimmer (manager)</span>
           <span class="blog-cdate">2026-01-01</span>
         </div><div class="blog-list-item" data-goto="01-blog-of-the-22nd-century">
           <span class="blog-ctitle">01 blog of the 22nd century</span>
           <span class="blog-cdate">2026-01-01</span>
         </div></div>
-<div class="blog-posts"><div class="blog-entry" data-slug="02-day-in-the-life-of-a-harpoons-swimmer">
-          <h3 class="blog-ctitle">02 day in the life of a harpoons swimmer</h3>
+<div class="blog-posts"><div class="blog-entry" data-slug="02-day-in-the-life-of-a-harpoons-swimmer-(manager)">
+          <h3 class="blog-ctitle">02 day in the life of a harpoons swimmer (manager)</h3>
           <p class="blog-cdate">2026-01-01</p>
-          <div class="blog-cbody">test
+          <div class="blog-cbody">it's awesome being a manager for a swim team, i think the fact that it's a very all-rounder sort of job makes it feel very gratifying and fun
 
-test
-
-test</div>
+people should take into consideration the effort it takes honestly, very fun</div>
           <a href="#blog" class="blog-back">← back to blog</a>
         </div><div class="blog-entry" data-slug="01-blog-of-the-22nd-century">
           <h3 class="blog-ctitle">01 blog of the 22nd century</h3>
@@ -282,7 +315,10 @@ but i mean no harm done when i still publish thoughts that will somehow show tha
       const now = new Date();
       const options = { timeZone: 'Asia/Manila', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
       const timeStr = now.toLocaleTimeString('en-PH', options);
+      const dateOptions = { timeZone: 'Asia/Manila', weekday: 'long', month: 'short', day: 'numeric' };
+      const dateStr = now.toLocaleDateString('en-PH', dateOptions);
       document.getElementById('clock').textContent = timeStr;
+      document.getElementById('clock-date').textContent = dateStr;
     }
     updateClock();
     setInterval(updateClock, 1000);
@@ -304,6 +340,23 @@ but i mean no harm done when i still publish thoughts that will somehow show tha
         link.classList.add('active');
         document.getElementById(tab).classList.add('active');
       });
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      const tabNames = ['about', 'projects', 'blog', 'socials'];
+      const activeLink = document.querySelector('.tab-link.active');
+      const currentIndex = activeLink ? tabNames.indexOf(activeLink.dataset.tab) : -1;
+
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        const nextIndex = (currentIndex + 1) % tabNames.length;
+        document.querySelector(`[data-tab="${tabNames[nextIndex]}"]`).click();
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prevIndex = (currentIndex - 1 + tabNames.length) % tabNames.length;
+        document.querySelector(`[data-tab="${tabNames[prevIndex]}"]`).click();
+      }
     });
 
     // Blog navigation
